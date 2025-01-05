@@ -1,0 +1,120 @@
+body {
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #27374D, #526D82);
+}
+
+h1 {
+    color: #DDE6ED;
+    text-align: center;
+}
+
+form {
+    background: rgba(157, 178, 191, 0.2);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    width: 350px;
+    text-align: center;
+}
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #9DB2BF;
+    margin: 0 auto 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #27374D;
+    font-size: 36px;
+}
+
+input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 15px 0;
+    border: none;
+    border-bottom: 1px solid #9DB2BF;
+    background: transparent;
+    color: #ffffff;
+    font-size: 16px;
+}
+
+input:focus {
+    outline: none;
+    border-bottom: 1px solid #526D82;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background: linear-gradient(135deg, #526D82, #27374D);
+    color: #FFFFFF;
+    border: none;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+button:hover {
+    background: #27374D;
+}
+
+.remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #9DB2BF;
+}
+
+.remember-forgot a {
+    color: #DDE6ED;
+    text-decoration: none;
+}
+
+.remember-forgot a:hover {
+    text-decoration: underline;
+}
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #9DB2BF;
+    margin: 0 auto 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #27374D;
+    font-size: 36px;
+}
+.options {
+    margin-top: 10px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.options a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.options a:hover {
+    text-decoration: underline;
+}
+
+
