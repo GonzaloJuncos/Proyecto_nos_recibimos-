@@ -1,0 +1,78 @@
+/* Home.css */
+.home-container {
+    display: flex;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #1a5276; /* Fondo azul fuerte */
+}
+
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    position: fixed; /* Fija la barra al borde izquierdo */
+    top: 0;
+    left: 0; /* Alinea la barra completamente a la izquierda */
+    background-color: #1a5276; /* Azul fuerte */
+    color: #ecf0f1; /* Texto claro */
+    display: flex;
+    flex-direction: column;
+    padding: 20px 10px;
+}
+
+.menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.menu li {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border-radius: 5px;
+}
+
+.menu li:hover {
+    background-color: #21618c; /* Azul más claro al pasar el ratón */
+}
+
+.menu-icon {
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.menu span {
+    font-size: 16px;
+}
+
+.content {
+    flex-grow: 1;
+    margin: 0;
+    padding: 0;
+    background-color: transparent; /* Elimina el fondo azul del contenido */
+}
+.header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #21618c; /* Azul más claro al pasar el ratón */
+    border-bottom: 1px solid #dee2e6;
+}
+
+.welcome-message {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+
+
+
+

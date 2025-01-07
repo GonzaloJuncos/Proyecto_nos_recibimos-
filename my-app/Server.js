@@ -1,4 +1,3 @@
-// Importar módulos usando ES Modules
 import express from "express";
 import bodyParser from "body-parser";
 import mysql from "mysql2";
@@ -48,7 +47,7 @@ app.post("/api/login", (req, res) => {
         return res.status(400).json({ message: "Por favor, complete todos los campos." });
     }
 
-    const query = "SELECT * FROM Usuarios WHERE Correo = ? AND Contraseña = ?";
+    const query = "SELECT Nombre FROM Usuarios WHERE Correo = ? AND Contraseña = ?";
     db.query(query, [email, password], (err, results) => {
         if (err) {
             console.error("Error al consultar la base de datos:", err);
@@ -56,24 +55,25 @@ app.post("/api/login", (req, res) => {
         }
 
         if (results.length > 0) {
-            res.json({ message: "Inicio de sesión exitoso." });
+            // Enviar el nombre del usuario en la respuesta
+            const userName = results[0].Nombre; // Obtenemos el nombre del usuario
+            res.json({ message: "Inicio de sesión exitoso.", userName });
         } else {
             res.status(401).json({ message: "Correo o contraseña incorrectos." });
         }
     });
 });
 
-// Ruta para registro
-app.post("/api/register", (req, res) => {
-    const { name, email, password } = req.body;
 
-    if (!name || !email || !password) {
+app.post("/api/register", (req, res) => {
+    const { name, email, password, role } = req.body; // Recibimos role directamente como IDRol
+
+    if (!name || !email || !password || !role) {
         return res.status(400).json({ message: "Por favor, complete todos los campos." });
     }
 
     const query = "INSERT INTO Usuarios (Nombre, Correo, Contraseña, IDRol) VALUES (?, ?, ?, ?)";
-
-    db.query(query, [name, email, password, 2], (err) => {
+    db.query(query, [name, email, password, role], (err) => {
         if (err) {
             console.error("Error al registrar al usuario:", err);
             return res.status(500).json({ message: "Error del servidor." });
