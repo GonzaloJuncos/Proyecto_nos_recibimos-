@@ -1,15 +1,16 @@
-/* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from "react";
+// eslint-disable-next-line no-unused-vars
+import React from "react";
+import { Link } from "react-router-dom";
 import "./Home.css";
-import "@fortawesome/fontawesome-free/css/all.min.css"; // Importación de Font Awesome
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const Home = () => {
     const userName = localStorage.getItem("userName");
+    const userRole = localStorage.getItem("userRole");
 
-    // Función para manejar el cierre de sesión
     const handleLogout = () => {
-        localStorage.clear(); // Limpia el almacenamiento local
-        window.location.href = "/login"; // Redirige al login
+        localStorage.clear();
+        window.location.href = "/login";
     };
 
     return (
@@ -22,43 +23,66 @@ const Home = () => {
             <div className="sidebar">
                 <ul className="menu">
                     <li>
-                        <i className="menu-icon fas fa-building"></i>
-                        <span>Sucursales</span>
+                        <Link to="/sucursales">
+                            <i className="menu-icon fas fa-building"></i>
+                            <span>Sucursales</span>
+                        </Link>
                     </li>
                     <li>
-                        <i className="menu-icon fas fa-truck"></i>
-                        <span>Proveedores</span>
+                        <Link to="/proveedores">
+                            <i className="menu-icon fas fa-truck"></i>
+                            <span>Proveedores</span>
+                        </Link>
                     </li>
                     <li>
-                        <i className="menu-icon fas fa-box"></i>
-                        <span>Productos</span>
+                        <Link to="/productos">
+                            <i className="menu-icon fas fa-box"></i>
+                            <span>Productos</span>
+                        </Link>
+                    </li>
+                    {userRole === "1" && (
+                        <li>
+                            <Link to="/stock">
+                                <i className="menu-icon fas fa-warehouse"></i>
+                                <span>Stock</span>
+                            </Link>
+                        </li>
+                    )}
+                    <li>
+                        <Link to="/compras">
+                            <i className="menu-icon fas fa-shopping-cart"></i>
+                            <span>Compras</span>
+                        </Link>
                     </li>
                     <li>
-                        <i className="menu-icon fas fa-warehouse"></i>
-                        <span>Stock</span>
+                        <Link to="/ventas">
+                            <i className="menu-icon fas fa-dollar-sign"></i>
+                            <span>Ventas</span>
+                        </Link>
                     </li>
+                    {userRole === "1" && (
+                        <>
+                            <li>
+                                <Link to="/reportes">
+                                    <i className="menu-icon fas fa-chart-line"></i>
+                                    <span>Reportes</span>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/caja">
+                                    <i className="menu-icon fas fa-cash-register"></i>
+                                    <span>Caja</span>
+                                </Link>
+                            </li>
+                        </>
+                    )}
                     <li>
-                        <i className="menu-icon fas fa-shopping-cart"></i>
-                        <span>Compras</span>
-                    </li>
-                    <li>
-                        <i className="menu-icon fas fa-dollar-sign"></i>
-                        <span>Ventas</span>
-                    </li>
-                    <li>
-                        <i className="menu-icon fas fa-chart-line"></i>
-                        <span>Reportes</span>
-                    </li>
-                    <li>
-                        <i className="menu-icon fas fa-file-invoice"></i>
-                        <span>Facturación</span>
-                    </li>
-                    <li>
-                        <i className="menu-icon fas fa-cash-register"></i>
-                        <span>Caja</span>
+                        <Link to="/facturacion">
+                            <i className="menu-icon fas fa-file-invoice"></i>
+                            <span>Facturación</span>
+                        </Link>
                     </li>
                 </ul>
-                {/* Botón de Cerrar Sesión al final de la barra lateral */}
                 <div className="logout-button-container">
                     <button className="logout-button" onClick={handleLogout}>
                         <i className="fas fa-sign-out-alt"></i> Cerrar Sesión
@@ -66,13 +90,13 @@ const Home = () => {
                 </div>
             </div>
             <div className="content">
-                {/* Si deseas mantener este mensaje, solo deja uno de los dos */}
-                {/* Elimina este mensaje si prefieres el del header */}
+                {/* Contenido principal */}
             </div>
         </div>
     );
 };
 
 export default Home;
+
 
 

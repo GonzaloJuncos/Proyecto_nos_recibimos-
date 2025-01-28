@@ -1,24 +1,29 @@
-.home-container {
-    display: flex;
-    height: 100vh; /* Ocupar toda la altura de la pantalla */
-    font-family: Arial, sans-serif;
+
+
+html, body {
     margin: 0;
     padding: 0;
+    height: 100%;
+    width: 100%;
 }
+
+
 
 
 .header {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-start;
-    padding: 7px -20px;
-    color: #0b0c0c; /* Texto oscuro para mejor contraste */
+    width: calc(100% - 250px); /* Considera el ancho de la barra lateral */
+    padding: 10px 20px; /* Elimina valores negativos */
+    color: #0b0c0c;
     position: fixed;
     top: 0;
-    left: 0;
+    right: 0; /* Para alinearlo correctamente */
+    background-color: transparent; /* Si es necesario */
     z-index: 1000;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }
+
 
 .welcome-message {
     font-size: 16px;
@@ -27,18 +32,17 @@
 }
 
 .sidebar {
-    width: 250px;
+    width: 250px; /* Mantén el ancho constante */
     height: 100vh;
+    background-color: #F7ECDE;
+    color: #0b0c0c;
+    padding: 20px 10px;
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #F7ECDE    ; /* Nuevo color de fondo */
-    color: #0b0c0c; /* Texto oscuro */
-    display: flex;
-    flex-direction: column;
-    padding: 20px 10px;
-    z-index: 500;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Añade sombra para separar */
 }
+
 
 .menu {
     list-style: none;
@@ -71,13 +75,8 @@
     font-size: 16px;
     color: #0b0c0c; /* Texto oscuro */
 }
-.content {
-    flex-grow: 1; /* Ocupar todo el espacio sobrante */
-    margin-left: 250px; /* Espacio para la barra lateral */
-    padding: 80px 20px; /* Ajusta el padding si es necesario */
-    background-color: #DBE2EF; /* Color de fondo */
-    min-height: 100vh; /* Asegura que ocupe al menos la altura de la pantalla */
-}
+
+
 
 
 

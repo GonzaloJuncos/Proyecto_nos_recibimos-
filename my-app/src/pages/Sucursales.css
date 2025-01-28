@@ -1,0 +1,30 @@
+.sucursales-container {
+    padding: 20px;
+    max-width: 600px;
+    margin: auto;
+}
+
+.sucursal-form input {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 8px;
+}
+
+.sucursal-form button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.sucursales-list {
+    list-style: none;
+    padding: 0;
+}
+
+.sucursales-list li {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}

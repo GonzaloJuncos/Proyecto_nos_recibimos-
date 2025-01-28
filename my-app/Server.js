@@ -47,7 +47,7 @@ app.post("/api/login", (req, res) => {
         return res.status(400).json({ message: "Por favor, complete todos los campos." });
     }
 
-    const query = "SELECT Nombre FROM Usuarios WHERE Correo = ? AND Contraseña = ?";
+    const query = "SELECT Nombre, IDRol FROM Usuarios WHERE Correo = ? AND Contraseña = ?";
     db.query(query, [email, password], (err, results) => {
         if (err) {
             console.error("Error al consultar la base de datos:", err);
@@ -55,18 +55,22 @@ app.post("/api/login", (req, res) => {
         }
 
         if (results.length > 0) {
-            // Enviar el nombre del usuario en la respuesta
-            const userName = results[0].Nombre; // Obtenemos el nombre del usuario
-            res.json({ message: "Inicio de sesión exitoso.", userName });
+            const { Nombre, IDRol } = results[0];
+            res.json({ 
+                message: "Inicio de sesión exitoso.", 
+                userName: Nombre, 
+                userRole: IDRol.toString()  // Asegurar que es string
+            });
+            
         } else {
             res.status(401).json({ message: "Correo o contraseña incorrectos." });
         }
     });
 });
 
-
+// Ruta para registrar usuarios
 app.post("/api/register", (req, res) => {
-    const { name, email, password, role } = req.body; // Recibimos role directamente como IDRol
+    const { name, email, password, role } = req.body;
 
     if (!name || !email || !password || !role) {
         return res.status(400).json({ message: "Por favor, complete todos los campos." });
@@ -161,6 +165,34 @@ app.post("/api/reset-password", (req, res) => {
         }
 
         res.json({ message: "Contraseña restablecida exitosamente." });
+    });
+});
+
+// backend: server.js (Agregamos rutas para sucursales)
+app.get("/api/sucursales", (req, res) => {
+    const query = "SELECT IDSucursal, Nombre, Dirección AS direccion FROM Sucursales";
+    db.query(query, (err, results) => {
+        if (err) {
+            console.error("Error al obtener sucursales:", err);
+            return res.status(500).json({ message: "Error del servidor." });
+        }
+        res.json(results);
+    });
+});
+
+
+app.post("/api/sucursales", (req, res) => {
+    const { nombre, direccion } = req.body;
+    if (!nombre || !direccion) {
+        return res.status(400).json({ message: "Todos los campos son requeridos." });
+    }
+    const query = "INSERT INTO Sucursales (Nombre, Dirección) VALUES (?, ?)";
+    db.query(query, [nombre, direccion], (err) => {
+        if (err) {
+            console.error("Error al agregar sucursal:", err);
+            return res.status(500).json({ message: "Error del servidor." });
+        }
+        res.status(201).json({ message: "Sucursal agregada exitosamente." });
     });
 });
 

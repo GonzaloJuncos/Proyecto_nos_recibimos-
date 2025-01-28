@@ -1,14 +1,9 @@
-// eslint-disable-next-line no-undef
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from "react";
-import './Login.css';
-
-// Importar React Router
+import "./Login.css";
 import { useNavigate } from "react-router-dom";
-
-// Importar Font Awesome
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 const Login = () => {
     const [name, setName] = useState("");
@@ -16,7 +11,7 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const [role, setRole] = useState("");
     const [isRegister, setIsRegister] = useState(false);
-  
+    
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -27,7 +22,7 @@ const Login = () => {
                 const response = await fetch("http://localhost:5000/api/register", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ name, email, password, role }), // Añadir el rol
+                    body: JSON.stringify({ name, email, password, role }),
                 });
     
                 const data = await response.json();
@@ -55,8 +50,9 @@ const Login = () => {
                 if (response.ok) {
                     alert(data.message);
     
-                    // Guardar el nombre del usuario en localStorage
+                    // Guardar usuario y rol en localStorage
                     localStorage.setItem("userName", data.userName);
+                    localStorage.setItem("userRole", data.userRole); // Guardar el rol del usuario
     
                     navigate("/home");
                 } else {
@@ -75,9 +71,7 @@ const Login = () => {
                 <div className="avatar">
                     <FontAwesomeIcon icon={faUser} className="avatar-icon" />
                 </div>
-                <h2>
-                    {isRegister ? "Registrarse" : "Iniciar Sesión"}
-                </h2>
+                <h2>{isRegister ? "Registrarse" : "Iniciar Sesión"}</h2>
 
                 {isRegister && (
                     <input
@@ -100,22 +94,15 @@ const Login = () => {
                     onChange={(e) => setPassword(e.target.value)}
                 />
                 {isRegister && (
-                <select
-                value={role}
-                onChange={(e) => setRole(e.target.value)}
-            >
-                <option value="">Seleccione un rol</option>
-                <option value="1">Administrador</option>
-                <option value="2">Empleado</option>
-            </select>
-            
-             
+                    <select value={role} onChange={(e) => setRole(e.target.value)}>
+                        <option value="">Seleccione un rol</option>
+                        <option value="1">Administrador</option>
+                        <option value="2">Empleado</option>
+                    </select>
                 )}
-
                 <button type="submit" className="login-button">
                     {isRegister ? "Registrarse" : "Iniciar Sesión"}
                 </button>
-
                 <div className="options">
                     <p>
                         {isRegister ? "¿Ya tienes cuenta?" : "¿No tienes cuenta?"}
@@ -130,6 +117,7 @@ const Login = () => {
 };
 
 export default Login;
+
 
 
 
