@@ -168,7 +168,7 @@ app.post("/api/reset-password", (req, res) => {
     });
 });
 
-// backend: server.js (Agregamos rutas para sucursales)
+// Obtener todas las sucursales
 app.get("/api/sucursales", (req, res) => {
     const query = "SELECT IDSucursal, Nombre, Dirección AS direccion FROM Sucursales";
     db.query(query, (err, results) => {
@@ -180,7 +180,7 @@ app.get("/api/sucursales", (req, res) => {
     });
 });
 
-
+// Agregar una nueva sucursal
 app.post("/api/sucursales", (req, res) => {
     const { nombre, direccion } = req.body;
     if (!nombre || !direccion) {
@@ -193,6 +193,42 @@ app.post("/api/sucursales", (req, res) => {
             return res.status(500).json({ message: "Error del servidor." });
         }
         res.status(201).json({ message: "Sucursal agregada exitosamente." });
+    });
+});
+
+// Eliminar una sucursal por ID
+app.delete("/api/sucursales/:id", (req, res) => {
+    const { id } = req.params;
+    const query = "DELETE FROM Sucursales WHERE IDSucursal = ?";
+    db.query(query, [id], (err, result) => {
+        if (err) {
+            console.error("Error al eliminar sucursal:", err);
+            return res.status(500).json({ message: "Error del servidor." });
+        }
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ message: "Sucursal no encontrada." });
+        }
+        res.json({ message: "Sucursal eliminada exitosamente." });
+    });
+});
+
+// Editar una sucursal por ID
+app.put("/api/sucursales/:id", (req, res) => {
+    const { id } = req.params;
+    const { nombre, direccion } = req.body;
+    if (!nombre || !direccion) {
+        return res.status(400).json({ message: "Todos los campos son requeridos." });
+    }
+    const query = "UPDATE Sucursales SET Nombre = ?, Dirección = ? WHERE IDSucursal = ?";
+    db.query(query, [nombre, direccion, id], (err, result) => {
+        if (err) {
+            console.error("Error al actualizar sucursal:", err);
+            return res.status(500).json({ message: "Error del servidor." });
+        }
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ message: "Sucursal no encontrada." });
+        }
+        res.json({ message: "Sucursal actualizada exitosamente." });
     });
 });
 
