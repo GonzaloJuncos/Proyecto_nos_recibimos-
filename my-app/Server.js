@@ -180,37 +180,46 @@ app.get("/api/sucursales", (req, res) => {
     });
 });
 
-// Agregar una nueva sucursal
 app.post("/api/sucursales", (req, res) => {
     const { nombre, direccion } = req.body;
+    
     if (!nombre || !direccion) {
         return res.status(400).json({ message: "Todos los campos son requeridos." });
     }
+
     const query = "INSERT INTO Sucursales (Nombre, Dirección) VALUES (?, ?)";
-    db.query(query, [nombre, direccion], (err) => {
+    db.query(query, [nombre, direccion], (err, result) => {
         if (err) {
             console.error("Error al agregar sucursal:", err);
             return res.status(500).json({ message: "Error del servidor." });
         }
-        res.status(201).json({ message: "Sucursal agregada exitosamente." });
+
+        // Obtener la sucursal recién creada
+        db.query("SELECT IDSucursal, Nombre, Dirección AS direccion FROM Sucursales WHERE IDSucursal = ?", 
+        [result.insertId], (err, newSucursal) => {
+            if (err) {
+                console.error("Error al obtener sucursal:", err);
+                return res.status(500).json({ message: "Error del servidor." });
+            }
+            res.status(201).json({ message: "Sucursal agregada exitosamente.", sucursal: newSucursal[0] });
+        });
     });
 });
+
 
 // Eliminar una sucursal por ID
 app.delete("/api/sucursales/:id", (req, res) => {
     const { id } = req.params;
     const query = "DELETE FROM Sucursales WHERE IDSucursal = ?";
-    db.query(query, [id], (err, result) => {
+    db.query(query, [id], (err) => {
         if (err) {
             console.error("Error al eliminar sucursal:", err);
             return res.status(500).json({ message: "Error del servidor." });
         }
-        if (result.affectedRows === 0) {
-            return res.status(404).json({ message: "Sucursal no encontrada." });
-        }
         res.json({ message: "Sucursal eliminada exitosamente." });
     });
 });
+
 
 // Editar una sucursal por ID
 app.put("/api/sucursales/:id", (req, res) => {
